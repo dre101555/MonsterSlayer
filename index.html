@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Monster Slayer</title>
+    <script src="https://npmcdn.com/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="css/foundation.min.css">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<div id="app">
+    <section class="row">
+        <div class="small-6 columns">
+            <h1 class="text-center">YOU</h1>
+            <div class="healthbar">
+                <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;"v-bind:style="{width:playerHealth +'%'}">
+                    {{playerHealth}}
+                </div>
+            </div>
+        </div>
+        <div class="small-6 columns">
+            <h1 class="text-center">MONSTER</h1>
+            <div class="healthbar">
+                <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;" v-bind:style="{width:monsterHealth +'%'}">
+                    {{monsterHealth}}
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="row controls">
+        <div class="small-12 columns">
+            <template  v-if="!toggle">
+                    <button id="start-game" v-on:click="startGame">START NEW GAME</button>
+            </template>
+           
+        </div>
+    </section>
+    <section class="row controls">
+        <template v-if="toggle">        
+        <div class="small-12 columns">
+            <button id="attack" v-on:click="attack">ATTACK</button>
+            <button id="special-attack" v-on:click="special">SPECIAL ATTACK</button>
+            <button id="heal" v-on:click="heal">HEAL</button>
+            <button id="give-up" v-on:click="giveUp">GIVE UP</button>
+        </div>
+
+    </template>
+    </section>
+    <section class="row log">
+        <div class="small-12 columns">
+                <ul id="list">  
+                    <li  v-for="(attacks,i) in results">
+                            {{results[i]}}
+                            <hr>
+                        </li>
+                    </ul>
+                    <template v-if="playerHealth <=0 "> 
+                        {{monsterWinner()}}
+                    </template>
+                    <template v-else-if="monsterHealth <=0">
+                        {{playerWinner()}}
+                    </template>
+        </div>
+    </section>
+    <script src="app.js"></script>
+</div>
+</body>
+</html>
